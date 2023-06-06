@@ -28,9 +28,15 @@ data class DocumentRange(val start: DocumentPosition, val end: DocumentPosition)
         require(start <= end) { "DocumentRange start can not be after the end" }
     }
 
+    infix operator fun rangeTo(other: DocumentRange): DocumentRange {
+        return this.start..other.end
+    }
+
     override fun toString(): String = "$start-$end"
 
     companion object {
+        val EMPTY = fromPositions(1, 0, 1, 0)
+
         fun fromPositions(
             startLine: Int,
             startColumn: Int,
@@ -38,6 +44,12 @@ data class DocumentRange(val start: DocumentPosition, val end: DocumentPosition)
             endColumn: Int,
         ): DocumentRange {
             return DocumentPosition(startLine, startColumn)..DocumentPosition(endLine, endColumn)
+        }
+
+        fun fromNodeList(nodes: List<AstNode>): DocumentRange {
+            val first = nodes.firstOrNull()?.range ?: return EMPTY
+            val last = nodes.lastOrNull()?.range ?: return EMPTY
+            return first..last
         }
     }
 }
