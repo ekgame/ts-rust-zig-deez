@@ -59,7 +59,7 @@ endlocal
 
 :"test-ast"
 	echo ^=^=^=^> Testing AST
-	echo [Not yet implemented]
+	call .\gradlew.bat test --tests monkeylang.ParserTest
 	if %test_all%=="yes" goto "test-parser" else goto exit
 
 :"test-parser"

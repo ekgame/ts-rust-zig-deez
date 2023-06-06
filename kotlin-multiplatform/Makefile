@@ -32,7 +32,7 @@ test-lexer:
 
 test-ast:
 	@echo "===> Testing AST"
-	@echo "[Not yet implemented]"
+	./gradlew test --tests monkeylang.ParserTest
 
 test-parser:
 	@echo "===> Testing parser"
